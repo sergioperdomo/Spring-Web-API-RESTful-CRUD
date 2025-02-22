@@ -1,11 +1,12 @@
-package controllers;
+package com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.controllers;
 
-import entities.Product;
+import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.entities.Product;
+import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.services.ProductService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import services.ProductService;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,15 +38,19 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product product){
-        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(product));
+    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product fieldUpdateProduct){
+        try {
+            Product updatedProduct = productService.update(id, fieldUpdateProduct);
+            return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
+        } catch (EntityNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
-        Product product = new Product();
-        product.setId(id);
-        Optional<Product> productOptional = productService.delete(product); // Elimina el producto que tenga ese ID.
+
+        Optional<Product> productOptional = productService.delete(id); // Elimina el producto que tenga ese ID.
         if (productOptional.isPresent()){
             return ResponseEntity.ok(productOptional.orElseThrow());
         }
