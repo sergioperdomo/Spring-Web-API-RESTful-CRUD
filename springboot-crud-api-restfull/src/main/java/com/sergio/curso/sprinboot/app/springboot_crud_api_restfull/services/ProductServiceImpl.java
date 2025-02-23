@@ -3,6 +3,8 @@ package com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.dtos.ProducUpdateDto;
+import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.dtos.ProductCreateDto;
 import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.repositories.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +33,18 @@ public class ProductServiceImpl implements ProductService{
 
     @Transactional
     @Override
-    public Product save(Product product) {
+    public Product save(ProductCreateDto productCreateDto) {
+//        Convertir DTO a entidad Product
+        Product product = new Product();
+        product.setName(productCreateDto.getName());
+        product.setPrice(productCreateDto.getPrice());
+        product.setDescription(productCreateDto.getDescription());
         return productRepository.save(product);
     }
 
     @Transactional
     @Override
-    public Product update(Long id, Product fieldUpdateProduct) {
+    public Product update(Long id, ProducUpdateDto fieldProductUpdateDto) {
         Optional<Product> existsProduct = productRepository.findById(id);
 
         if (existsProduct.isEmpty()){
@@ -46,14 +53,14 @@ public class ProductServiceImpl implements ProductService{
 
         // SOLO SE ACTUALIZAN LOS CAMPOS QUE NO SEAN NULL
         Product idProductFound = existsProduct.get();
-        if (fieldUpdateProduct.getName() != null){
-            idProductFound.setName(fieldUpdateProduct.getName());
+        if (fieldProductUpdateDto.getName() != null){
+            idProductFound.setName(fieldProductUpdateDto.getName());
         }
-        if (fieldUpdateProduct.getPrice() != null){
-            idProductFound.setPrice(fieldUpdateProduct.getPrice());
+        if (fieldProductUpdateDto.getPrice() != null){
+            idProductFound.setPrice(fieldProductUpdateDto.getPrice());
         }
-        if (fieldUpdateProduct.getDescription() != null){
-            idProductFound.setDescription(fieldUpdateProduct.getDescription());
+        if (fieldProductUpdateDto.getDescription() != null){
+            idProductFound.setDescription(fieldProductUpdateDto.getDescription());
         }
         return productRepository.save(idProductFound);
     }
