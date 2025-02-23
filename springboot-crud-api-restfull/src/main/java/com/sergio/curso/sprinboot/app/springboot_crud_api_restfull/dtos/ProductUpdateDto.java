@@ -6,20 +6,20 @@ import lombok.Data;
 import org.springframework.validation.BindingResult;
 
 @Data
-public class ProducUpdateDto {
+public class ProductUpdateDto {
 
     /***
      * Para hacer validaciónes se usa el @Valid antes del @RequestBody como se muestra a continuación:
-     * @see  ProductController#update(Long, ProducUpdateDto, BindingResult)
+     * @see  ProductController#update(Long, ProductUpdateDto, BindingResult)
      * Quitamos @NotBlank, @NotNull, @Positive para permitir que los campos sean opcionales.
      */
 
-    @Size(min = 3, message = "debe tener entre 3 en adelante.")
+    @Size(min = 3, message = "{productUpdateDto.name.size}")
     private String name;
 
-    @Positive(message = "El precio debe ser mayor a cero")
+    @Positive(message = "{productUpdateDto.price.positive}")
     private Integer price;
 
-    @Size(min = 10, message = "debe tener al menos 10 caracteres")
+    @Size(min = 10, message = "{productUpdateDto.description.size}")
     private String description;
 }

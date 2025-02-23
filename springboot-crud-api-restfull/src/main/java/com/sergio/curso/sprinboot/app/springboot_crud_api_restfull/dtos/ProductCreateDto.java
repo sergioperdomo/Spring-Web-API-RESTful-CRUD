@@ -6,15 +6,15 @@ import lombok.Data;
 @Data
 public class ProductCreateDto {
 
-    @NotBlank(message = "no puede estar vacío.")
-    @Size(min = 3, max = 20, message = "debe tener entre 3 y 20 caracteres")
+    @NotBlank(message = "{productCreateDto.name.notBlank}")
+    @Size(min = 3, max = 20, message = "{productCreateDto.name.size}")
     private String name;
 
-    @NotNull
-    @Positive(message = "debe ser mayor al cero.")
+
+    @Positive(message = "{productCreateDto.price.positive}")
     private Integer price;
 
-    @Size(min = 10, message = "debe tener al menos 10 caracteres")
-    @NotBlank(message = "no puede estar vacío.")
+    @Size(min = 10, message = "{productCreateDto.description.size}")
+    @NotBlank(message = "{productCreateDto.description.notBlank}")
     private String description;
 }
