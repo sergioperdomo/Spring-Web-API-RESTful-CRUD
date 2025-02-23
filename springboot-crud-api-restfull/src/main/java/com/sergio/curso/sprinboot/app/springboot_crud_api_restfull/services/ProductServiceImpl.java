@@ -3,7 +3,7 @@ package com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.dtos.ProducUpdateDto;
+import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.dtos.ProductUpdateDto;
 import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.dtos.ProductCreateDto;
 import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.repositories.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Transactional
     @Override
-    public Product update(Long id, ProducUpdateDto fieldProductUpdateDto) {
+    public Product update(Long id, ProductUpdateDto fieldProductUpdateDto) {
         Optional<Product> existsProduct = productRepository.findById(id);
 
         if (existsProduct.isEmpty()){
