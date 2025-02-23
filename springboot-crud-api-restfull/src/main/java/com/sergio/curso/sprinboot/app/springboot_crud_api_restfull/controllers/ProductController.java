@@ -1,7 +1,7 @@
 package com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.controllers;
 
 import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.dtos.ProductCreateDto;
-import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.dtos.ProducUpdateDto;
+import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.dtos.ProductUpdateDto;
 import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.entities.Product;
 import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.services.ProductService;
 import jakarta.persistence.EntityNotFoundException;
@@ -52,7 +52,7 @@ public class ProductController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody ProducUpdateDto fieldUpdateProductDto, BindingResult result) {
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody ProductUpdateDto fieldUpdateProductDto, BindingResult result) {
         if (result.hasFieldErrors()) {
             return validation(result);
         }
