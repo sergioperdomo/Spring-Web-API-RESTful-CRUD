@@ -4,12 +4,13 @@ import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.dtos.ProductC
 import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.dtos.ProductUpdateDto;
 import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.entities.Product;
 import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.services.ProductService;
+import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.validators.ProductValidation;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -25,8 +26,19 @@ public class ProductController {
      * @see ProductController#create(ProductCreateDto, BindingResult)   BindingResult captura los errores, tiene que estar al lado derecho del parametro que estamos pasando.
      */
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+    private final ProductValidation productValidation;
+
+    public ProductController(ProductService productService, ProductValidation productValidation){
+        this.productService = productService;
+        this.productValidation = productValidation;
+    }
+
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder){
+        binder.addValidators(productValidation);
+    }
 
     @GetMapping
     public List<Product> list() {
@@ -47,7 +59,6 @@ public class ProductController {
         if (result.hasFieldErrors()) {
             return validation(result);
         }
-
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productCreateDto));
     }
 
@@ -56,8 +67,6 @@ public class ProductController {
         if (result.hasFieldErrors()) {
             return validation(result);
         }
-
-
         try {
             Product updatedProduct = productService.update(id, fieldUpdateProductDto);
             return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
@@ -80,7 +89,7 @@ public class ProductController {
     private ResponseEntity<?> validation(BindingResult result) {
         Map<String, String> errors = new HashMap<>();
         result.getFieldErrors().forEach(error -> {
-            errors.put(error.getField(), "El campo " + error.getField() + " " + error.getDefaultMessage());
+            errors.put(error.getField(), String.format("Error en el campo '%s':%s", error.getField(), error.getDefaultMessage()));
         });
         return ResponseEntity.badRequest().body(errors);
     }
