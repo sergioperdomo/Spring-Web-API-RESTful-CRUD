@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>{
+
+    //    Método personalizado para verificar si existe sku
+    boolean existsBySku(String sku);
 }

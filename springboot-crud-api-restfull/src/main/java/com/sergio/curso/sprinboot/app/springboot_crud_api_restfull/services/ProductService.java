@@ -14,4 +14,5 @@ public interface ProductService {
     Product save(ProductCreateDto productCreateDto);
     Product update(Long id, ProductUpdateDto fieldProductUpdateDto);
     Optional<Product> delete(Long id);
+    boolean existsBySku(String sku);
 }
