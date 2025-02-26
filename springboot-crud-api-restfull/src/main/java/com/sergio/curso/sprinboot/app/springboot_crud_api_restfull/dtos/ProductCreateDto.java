@@ -17,4 +17,7 @@ public class ProductCreateDto {
     @Size(min = 10, message = "{productCreateDto.description.size}")
     @NotBlank(message = "{productCreateDto.description.notBlank}")
     private String description;
+
+    @NotBlank(message = "{productCreateDto.sku.notBlank}")
+    private String sku;
 }

@@ -22,4 +22,6 @@ public class ProductUpdateDto {
 
     @Size(min = 10, message = "{productUpdateDto.description.size}")
     private String description;
+
+    private String sku;
 }
