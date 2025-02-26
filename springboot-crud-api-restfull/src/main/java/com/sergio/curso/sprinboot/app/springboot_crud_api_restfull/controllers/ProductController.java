@@ -34,7 +34,8 @@ public class ProductController {
         this.productValidation = productValidation;
     }
 
-
+//    ✅ Registra productValidation en el WebDataBinder, que es el mecanismo de Spring para manejar validaciones personalizadas.
+//    ✅ Se ejecutará automáticamente antes de cualquier método del controlador que reciba una petición HTTP con un @RequestBody.
     @InitBinder
     protected void initBinder(WebDataBinder binder){
         binder.addValidators(productValidation);
