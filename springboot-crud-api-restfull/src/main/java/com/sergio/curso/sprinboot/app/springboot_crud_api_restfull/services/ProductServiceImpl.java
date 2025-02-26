@@ -39,6 +39,7 @@ public class ProductServiceImpl implements ProductService{
         product.setName(productCreateDto.getName());
         product.setPrice(productCreateDto.getPrice());
         product.setDescription(productCreateDto.getDescription());
+        product.setSku(product.getSku());
         return productRepository.save(product);
     }
 
@@ -62,6 +63,9 @@ public class ProductServiceImpl implements ProductService{
         if (fieldProductUpdateDto.getDescription() != null){
             idProductFound.setDescription(fieldProductUpdateDto.getDescription());
         }
+        if(fieldProductUpdateDto.getSku() != null){
+            idProductFound.setSku(fieldProductUpdateDto.getSku());
+        }
         return productRepository.save(idProductFound);
     }
 
@@ -74,6 +78,12 @@ public class ProductServiceImpl implements ProductService{
         });
 
         return productOptionalDb;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public boolean existsBySku(String sku) {
+        return productRepository.existsBySku(sku);
     }
 
 }
