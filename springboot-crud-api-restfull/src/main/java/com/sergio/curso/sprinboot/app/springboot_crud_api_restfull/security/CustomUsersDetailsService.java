@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
  * ✅ Personalizar la manera en que se recuperan los usuarios para autenticación.
  */
 
+// Se usa para obtener los detalles del usuario autenticado.
+
 @Service
 public class CustomUsersDetailsService implements UserDetailsService {
 
