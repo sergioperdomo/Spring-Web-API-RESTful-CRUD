@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+// Se usa para validar y extraer información del JWT
 @Component
 public class JwtGenerador {
 
