@@ -1,5 +1,6 @@
 package com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.repositories;
 
+import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.dtos.UserDto;
 import com.sergio.curso.sprinboot.app.springboot_crud_api_restfull.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
