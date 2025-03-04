@@ -8,6 +8,6 @@ import javax.crypto.SecretKey;
 public class ConstanteSeguridad {
 
     public static final long  JWT_EXPIRATION_TOKEN = 300000; // 5 minutos.
-    public static final String JWT_SECRET = "A0/zdhyORZNijz0D0tZ9DEy9i87kfBsXGxvRbTacZZE=";
+    public static final String JWT_SECRET = "C9Zb3p2MfjJplX9EM9FMy87keGsXxvTbTacZZE23F9z=";
     public static final SecretKey  JWT_FIRMA = Keys.hmacShaKeyFor(Decoders.BASE64.decode(JWT_SECRET));
 }
